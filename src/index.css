@@ -1,94 +1,70 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. */
+/* Enhanced Design System for Portfolio */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Light Theme Colors */
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --card: 255 255 255;
+    --card-foreground: 15 23 42;
+    --popover: 255 255 255;
+    --popover-foreground: 15 23 42;
+    --primary: 99 102 241;
+    --primary-foreground: 255 255 255;
+    --secondary: 241 245 249;
+    --secondary-foreground: 51 65 85;
+    --muted: 248 250 252;
+    --muted-foreground: 100 116 139;
+    --accent: 244 244 245;
+    --accent-foreground: 39 39 42;
+    --destructive: 239 68 68;
+    --destructive-foreground: 248 250 252;
+    --border: 226 232 240;
+    --input: 226 232 240;
+    --ring: 99 102 241;
+    --radius: 0.75rem;
+    
+    /* Light theme specific */
+    --tech-accent: 147 51 234;
+    --gradient-start: 99 102 241;
+    --gradient-end: 147 51 234;
+    --glow: 99 102 241;
+    --particle: 148 163 184;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Dark Theme Colors - Cyberpunk Neon */
+    --background: 2 6 23;
+    --foreground: 248 250 252;
+    --card: 15 23 42;
+    --card-foreground: 248 250 252;
+    --popover: 15 23 42;
+    --popover-foreground: 248 250 252;
+    --primary: 14 165 233;
+    --primary-foreground: 2 6 23;
+    --secondary: 30 41 59;
+    --secondary-foreground: 248 250 252;
+    --muted: 30 41 59;
+    --muted-foreground: 148 163 184;
+    --accent: 30 41 59;
+    --accent-foreground: 248 250 252;
+    --destructive: 220 38 127;
+    --destructive-foreground: 248 250 252;
+    --border: 30 41 59;
+    --input: 30 41 59;
+    --ring: 14 165 233;
+    
+    /* Dark theme specific - Neon Cyberpunk */
+    --tech-accent: 217 70 239;
+    --gradient-start: 14 165 233;
+    --gradient-end: 217 70 239;
+    --glow: 14 165 233;
+    --particle: 59 130 246;
   }
 }
 
@@ -96,8 +72,122 @@
   * {
     @apply border-border;
   }
-
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Poppins'];
+    overflow-x: hidden;
   }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Custom gradient backgrounds */
+  .bg-gradient-cyber {
+    background: linear-gradient(135deg, 
+      hsl(var(--gradient-start)) 0%, 
+      hsl(var(--gradient-end)) 100%);
+  }
+  
+  .bg-gradient-hero {
+    background: radial-gradient(ellipse at top, 
+      hsl(var(--gradient-start) / 0.1) 0%, 
+      transparent 50%),
+      radial-gradient(ellipse at bottom, 
+      hsl(var(--gradient-end) / 0.1) 0%, 
+      transparent 50%);
+  }
+  
+  /* Neon effects for dark mode */
+  .neon-glow {
+    @apply dark:shadow-[0_0_20px_hsl(var(--glow)/0.5)];
+  }
+  
+  .neon-text {
+    @apply dark:text-shadow-[0_0_10px_hsl(var(--glow))];
+  }
+  
+  .neon-border {
+    @apply dark:border-[hsl(var(--glow))] dark:shadow-[0_0_10px_hsl(var(--glow)/0.3)];
+  }
+  
+  /* Glass morphism */
+  .glass {
+    @apply backdrop-blur-md bg-white/10 dark:bg-white/5 border border-white/20;
+  }
+  
+  /* Animated underlines */
+  .animated-underline {
+    @apply relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-gradient-cyber after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  /* Particle animation */
+  .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  .particle {
+    position: absolute;
+    background: hsl(var(--particle));
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-30px) rotate(120deg); }
+    66% { transform: translateY(30px) rotate(240deg); }
+  }
+  
+  /* Pulse animation for profile image */
+  .pulse-ring {
+    @apply absolute inset-0 rounded-full border-2 border-primary/30 animate-ping;
+  }
+  
+  /* Hover animations */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:scale-105 hover:-translate-y-2;
+  }
+  
+  /* Scroll animations */
+  .fade-in-up {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  
+  .fade-in-up.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+/* Font families */
+.font-heading {
+  font-family: 'Sora', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary;
 }
