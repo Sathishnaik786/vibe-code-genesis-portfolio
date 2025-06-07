@@ -3,20 +3,21 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/components/ThemeProvider';
 import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, setTheme } = useTheme();
+  const location = useLocation();
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Toolbox', href: '#toolbox' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Certifications', href: '#certifications' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Certifications', href: '/certifications' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   useEffect(() => {
@@ -32,14 +33,6 @@ const Navbar = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -52,21 +45,25 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <span className="text-2xl font-bold font-sora bg-gradient-cyber bg-clip-text text-transparent">
-              ISN
-            </span>
+            <Link to="/">
+              <span className="text-2xl font-bold font-sora bg-gradient-cyber bg-clip-text text-transparent">
+                ISN
+              </span>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-foreground hover:text-primary transition-colors animated-underline font-medium"
+                to={item.href}
+                className={`text-foreground hover:text-primary transition-colors animated-underline font-medium ${
+                  location.pathname === item.href ? 'text-primary' : ''
+                }`}
               >
                 {item.name}
-              </button>
+              </Link>
             ))}
           </div>
 
@@ -117,13 +114,16 @@ const Navbar = () => {
           <div className="md:hidden absolute top-full left-0 right-0 glass backdrop-blur-lg border-t border-border">
             <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
-                <button
+                <Link
                   key={item.name}
-                  onClick={() => scrollToSection(item.href)}
-                  className="block w-full text-left text-foreground hover:text-primary transition-colors font-medium py-2"
+                  to={item.href}
+                  className={`block w-full text-left text-foreground hover:text-primary transition-colors font-medium py-2 ${
+                    location.pathname === item.href ? 'text-primary' : ''
+                  }`}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
-                </button>
+                </Link>
               ))}
               <Button className="w-full bg-gradient-cyber neon-glow mt-4">
                 🚀 Hire Me
