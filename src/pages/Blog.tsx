@@ -1,195 +1,331 @@
-
-import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+// Blog.jsx
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, Heart, MessageCircle, Share2 } from 'lucide-react';
+import { Heart, MessageCircle, Share2, Facebook, Linkedin, Twitter, Search, X } from 'lucide-react';
+
+interface Post {
+  title: string;
+  excerpt: string;
+  image: string;
+  category: string;
+  likes: number;
+  comments: number;
+  date: string;
+}
+
+const categories = [
+  'All Posts',
+  'AI & Machine Learning',
+  'Web Development',
+  'Mobile Development',
+  'Cloud Computing',
+  'DevOps',
+  'Cybersecurity'
+];
+
+const blogPosts: Post[] = [
+  {
+    title: 'Building AI-Powered Applications with React',
+    excerpt: 'Learn how to integrate artificial intelligence into your React applications using modern tools and techniques.',
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb',
+    category: 'AI & Machine Learning',
+    likes: 245,
+    comments: 32,
+    date: 'March 15, 2024'
+  },
+  {
+    title: 'The Future of Web Development',
+    excerpt: 'Exploring the latest trends and technologies shaping the future of web development.',
+    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6',
+    category: 'Web Development',
+    likes: 189,
+    comments: 24,
+    date: 'March 12, 2024'
+  },
+  {
+    title: 'Understanding Large Language Models',
+    excerpt: 'A deep dive into the architecture and capabilities of modern LLMs.',
+    image: 'https://images.unsplash.com/photo-1677442135136-760c813a743d',
+    category: 'AI & Machine Learning',
+    likes: 42,
+    comments: 15,
+    date: 'March 10, 2024'
+  },
+  {
+    title: 'Getting Started with Generative AI',
+    excerpt: 'Learn the basics of generative AI and how to implement it in your projects.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995',
+    category: 'AI & Machine Learning',
+    likes: 38,
+    comments: 12,
+    date: 'March 8, 2024'
+  },
+  {
+    title: 'The Power of Transformer Models',
+    excerpt: 'Understanding the revolutionary architecture behind modern AI systems.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995',
+    category: 'AI & Machine Learning',
+    likes: 56,
+    comments: 23,
+    date: 'March 6, 2024'
+  },
+  {
+    title: 'Building Your First AI Project',
+    excerpt: 'A step-by-step guide to creating your first AI-powered application.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995',
+    category: 'Projects',
+    likes: 29,
+    comments: 8,
+    date: 'March 4, 2024'
+  }
+];
+
+const carouselImages = [
+  'https://media.istockphoto.com/id/1950804925/photo/ai-technology-in-everyday-life-concept-people-use-ai-to-help-work-artificial-intelligence.jpg?s=612x612&w=0&k=20&c=pMNNlK3h31KvxdZeYAxp2QBWxszC_tR4_DpnxFWmwbs=',
+  'https://media.istockphoto.com/id/1782109417/photo/innovative-futuristic-ai-digital-chatbot-concept-virtual-conversation-assistant-using.jpg?s=612x612&w=0&k=20&c=rvXvb3zmLJovT-CNR1ukuyZJoulJ9mwW4Jfgt4Z1v2g=',
+  'https://media.istockphoto.com/id/1782109417/photo/innovative-futuristic-ai-digital-chatbot-concept-virtual-conversation-assistant-using.jpg?s=612x612&w=0&k=20&c=rvXvb3zmLJovT-CNR1ukuyZJoulJ9mwW4Jfgt4Z1v2g=',
+  'https://media.istockphoto.com/id/2210154232/photo/futuristic-concept-of-artificial-intelligence-technology-showing-a-businessman-holding-a.jpg?s=612x612&w=0&k=20&c=cmguWmJkxNdUzTfJraDzQy5PV8Ca9A46Q9VqwXVL97w=',
+  'https://media.istockphoto.com/id/1201073294/photo/ai-learning-and-artificial-intelligence-concept.jpg?s=612x612&w=0&k=20&c=aNgt8GZkUUKUcbMenPcA2NZMKVAH5mWfwzlJqY9eFOA='
+];
 
 const Blog = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [currentImage, setCurrentImage] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState('All Posts');
+  const [visiblePosts, setVisiblePosts] = useState(4);
+  const [showAll, setShowAll] = useState(false);
+  const [sharePost, setSharePost] = useState<Post | null>(null);
 
-  const categories = ['All', 'LLMs', 'GenAI', 'Transformers', 'Projects'];
-  
-  const blogPosts = [
-    {
-      title: "The Future of AI-Human Collaboration",
-      excerpt: "Exploring how artificial intelligence will reshape the way we work and create together, building bridges between human creativity and machine intelligence.",
-      category: "GenAI",
-      readTime: "8 min read",
-      date: "Dec 15, 2024",
-      likes: 42,
-      comments: 8
-    },
-    {
-      title: "Building LLM Applications with LangChain",
-      excerpt: "A comprehensive guide to creating powerful language model applications using LangChain framework, from basic concepts to advanced implementations.",
-      category: "LLMs",
-      readTime: "12 min read",
-      date: "Dec 10, 2024",
-      likes: 38,
-      comments: 12
-    },
-    {
-      title: "Vector Databases: The Backbone of Modern AI",
-      excerpt: "Deep dive into vector databases and their crucial role in similarity search, recommendation systems, and retrieval-augmented generation.",
-      category: "Transformers",
-      readTime: "10 min read",
-      date: "Dec 5, 2024",
-      likes: 29,
-      comments: 6
-    },
-    {
-      title: "Fine-tuning GPT Models for Domain-Specific Tasks",
-      excerpt: "Learn how to customize large language models for specific industries and use cases through effective fine-tuning strategies.",
-      category: "LLMs",
-      readTime: "15 min read",
-      date: "Nov 28, 2024",
-      likes: 55,
-      comments: 15
-    },
-    {
-      title: "Building an AI-Powered Code Review System",
-      excerpt: "Creating an intelligent code review assistant that understands context, suggests improvements, and maintains coding standards automatically.",
-      category: "Projects",
-      readTime: "11 min read",
-      date: "Nov 20, 2024",
-      likes: 47,
-      comments: 9
-    },
-    {
-      title: "Understanding Transformer Architecture",
-      excerpt: "Breaking down the transformer model architecture and its revolutionary impact on natural language processing and beyond.",
-      category: "Transformers",
-      readTime: "9 min read",
-      date: "Nov 15, 2024",
-      likes: 34,
-      comments: 7
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % carouselImages.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleExploreMore = () => {
+    setShowAll(true);
+    setVisiblePosts(blogPosts.length);
+  };
+
+  const handleShare = (post: Post) => {
+    setSharePost(post);
+  };
+
+  const handleCloseShare = () => {
+    setSharePost(null);
+  };
+
+  const handleSocialShare = (platform: string) => {
+    if (!sharePost) return;
+
+    const text = `${sharePost.title}\n${sharePost.excerpt}`;
+    const url = encodeURIComponent(window.location.href);
+    const shareText = encodeURIComponent(text);
+
+    let shareUrl = '';
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${shareText}&url=${url}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${shareText}`;
+        break;
+      case 'linkedin':
+        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+        break;
     }
-  ];
 
-  const carouselImages = [
-    'https://images.unsplash.com/photo-1518770660439-4636190af475',
-    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5',
-    'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
-    'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158',
-    'https://images.unsplash.com/photo-1649972904349-6e44c42644a7'
-  ];
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+    handleCloseShare();
+  };
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredPosts = selectedCategory === 'All Posts'
+    ? blogPosts
+    : blogPosts.filter(post => post.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Carousel */}
-      <div className="w-full h-96 bg-gradient-hero relative overflow-hidden mb-8">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h1 className="text-5xl font-bold font-sora bg-gradient-cyber bg-clip-text text-transparent">
-            AI Lab Blog
-          </h1>
+      {/* Header */}
+      <div className="relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="text-center">
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+              Blog
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Exploring the intersection of technology, AI, and human creativity through insightful articles and tutorials.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
+          {/* Sidebar - Fixed */}
           <div className="lg:col-span-1">
-            <Card className="neon-border bg-card/50 backdrop-blur-sm mb-6">
-              <CardHeader>
-                <CardTitle className="font-sora">Categories</CardTitle>
-              </CardHeader>
-              <CardContent>
+            <div className="sticky top-24 space-y-6">
+              {/* Search */}
+              <div className="glass backdrop-blur-lg shadow-lg border border-white/10 rounded-2xl p-6">
+                <h3 className="text-lg font-semibold mb-4">Search</h3>
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    className="w-full pl-10 pr-4 py-2 rounded-lg bg-card border border-border focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                </div>
+              </div>
+
+              {/* Categories */}
+              <div className="glass backdrop-blur-lg shadow-lg border border-white/10 rounded-2xl p-6">
+                <h3 className="text-lg font-semibold mb-4">Categories</h3>
                 <div className="space-y-2">
                   {categories.map((category) => (
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
-                      className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
-                        selectedCategory === category
-                          ? 'bg-primary text-primary-foreground'
-                          : 'hover:bg-accent hover:text-accent-foreground'
-                      }`}
+                      className={`w-full text-left px-4 py-2 rounded-lg text-sm transition-colors
+                        ${selectedCategory === category 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'bg-card hover:bg-primary/10'}`}
                     >
                       {category}
                     </button>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            {/* Search Bar */}
-            <div className="mb-8">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input
-                  placeholder="Search blog posts..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 neon-border bg-background/50"
-                />
               </div>
-            </div>
 
-            {/* Blog Posts */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredPosts.map((post, index) => (
-                <Card 
-                  key={post.title}
-                  className="hover-lift neon-border bg-card/50 backdrop-blur-sm fade-in-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {/* Image placeholder */}
-                  <div className="aspect-[6/4] bg-gradient-cyber"></div>
-                  
-                  <CardHeader>
-                    <div className="flex justify-between items-center text-sm text-muted-foreground mb-2">
-                      <span>{post.date}</span>
-                      <span>{post.readTime}</span>
-                    </div>
-                    <CardTitle className="font-sora text-lg group-hover:text-primary transition-colors">
-                      {post.title}
-                    </CardTitle>
-                    <CardDescription className="text-muted-foreground">
-                      {post.excerpt}
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <Button 
-                        variant="ghost" 
-                        className="hover:text-primary transition-colors font-semibold"
-                      >
-                        Read More →
-                      </Button>
-                      <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                        <button className="flex items-center space-x-1 hover:text-primary transition-colors">
-                          <Heart className="w-4 h-4" />
-                          <span>{post.likes}</span>
-                        </button>
-                        <button className="flex items-center space-x-1 hover:text-primary transition-colors">
-                          <MessageCircle className="w-4 h-4" />
-                          <span>{post.comments}</span>
-                        </button>
-                        <button className="hover:text-primary transition-colors">
-                          <Share2 className="w-4 h-4" />
-                        </button>
+              {/* Popular Posts */}
+              <div className="glass backdrop-blur-lg shadow-lg border border-white/10 rounded-2xl p-6">
+                <h3 className="text-lg font-semibold mb-4">Popular Posts</h3>
+                <div className="space-y-4">
+                  {blogPosts.slice(0, 3).map((post, index) => (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-medium line-clamp-2">{post.title}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">{post.date}</p>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content - Scrollable */}
+          <div className="lg:col-span-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filteredPosts.slice(0, visiblePosts).map((post, index) => (
+                <div
+                  key={index}
+                  className="glass backdrop-blur-lg shadow-lg border border-white/10 rounded-2xl overflow-hidden group"
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span className="px-3 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                        {post.category}
+                      </span>
+                      <span className="text-sm text-muted-foreground">{post.date}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2 line-clamp-2">{post.title}</h3>
+                    <p className="text-muted-foreground mb-4 line-clamp-3">{post.excerpt}</p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <button className="flex items-center space-x-1 text-muted-foreground hover:text-primary transition-colors">
+                          <Heart className="h-4 w-4" />
+                          <span className="text-sm">{post.likes}</span>
+                        </button>
+                        <button className="flex items-center space-x-1 text-muted-foreground hover:text-primary transition-colors">
+                          <MessageCircle className="h-4 w-4" />
+                          <span className="text-sm">{post.comments}</span>
+                        </button>
+                        <button 
+                          onClick={() => handleShare(post)}
+                          className="flex items-center space-x-1 text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          <Share2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                      <button className="text-primary hover:text-primary/80 transition-colors">
+                        Read More →
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
+
+            {!showAll && filteredPosts.length > 4 && (
+              <div className="mt-12 text-center">
+                <button
+                  onClick={handleExploreMore}
+                  className="px-8 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  Explore More
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      {/* Share Modal */}
+      {sharePost && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="glass backdrop-blur-lg shadow-lg border border-white/10 rounded-2xl p-6 max-w-md w-full mx-4">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-lg font-semibold">Share Article</h3>
+              <button
+                onClick={handleCloseShare}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="mb-6">
+              <h4 className="font-medium mb-2">{sharePost.title}</h4>
+              <p className="text-sm text-muted-foreground line-clamp-2">{sharePost.excerpt}</p>
+            </div>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={() => handleSocialShare('twitter')}
+                className="p-3 rounded-full bg-[#1DA1F2] text-white hover:bg-[#1DA1F2]/90 transition-colors"
+              >
+                <Twitter className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => handleSocialShare('facebook')}
+                className="p-3 rounded-full bg-[#4267B2] text-white hover:bg-[#4267B2]/90 transition-colors"
+              >
+                <Facebook className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => handleSocialShare('linkedin')}
+                className="p-3 rounded-full bg-[#0077B5] text-white hover:bg-[#0077B5]/90 transition-colors"
+              >
+                <Linkedin className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

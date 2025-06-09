@@ -1,156 +1,130 @@
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Github, Linkedin, Youtube, Mail } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import ParticleBackground from '@/components/ParticleBackground';
+import { ArrowRight, Github } from 'lucide-react';
+import logo from '../assets/images/logo.jpg';
+
+// Tech stack logos
+const techStack = [
+  { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+  { name: 'TypeScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+  { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+  { name: 'AWS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg' },
+  { name: 'MongoDB', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+  { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  { name: 'Next.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+  { name: 'Tailwind', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg' },
+  { name: 'PostgreSQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+  { name: 'Redis', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' }
+];
 
 const Home = () => {
-  const navigate = useNavigate();
-  const [currentSubtitle, setCurrentSubtitle] = useState(0);
-  
-  const subtitles = [
-    "AI Engineer",
-    "Vibe Coder", 
-    "Creative Technologist"
-  ];
-
-  const socialLinks = [
-    { 
-      icon: Github, 
-      label: 'GitHub', 
-      href: 'https://github.com', 
-      color: 'hover:text-gray-900 dark:hover:text-gray-100' 
-    },
-    { 
-      icon: Linkedin, 
-      label: 'LinkedIn', 
-      href: 'https://linkedin.com', 
-      color: 'hover:text-blue-600' 
-    },
-    { 
-      icon: Youtube, 
-      label: 'YouTube', 
-      href: 'https://youtube.com', 
-      color: 'hover:text-red-600' 
-    },
-    { 
-      icon: Mail, 
-      label: 'Email', 
-      href: 'mailto:sathish@example.com', 
-      color: 'hover:text-green-600' 
-    }
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSubtitle((prev) => (prev + 1) % subtitles.length);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const scrollToProjects = () => {
-    navigate('/projects');
-  };
-
-  const scrollToContact = () => {
-    navigate('/contact');
-  };
-
   return (
-    <div className="min-h-screen bg-background text-foreground relative overflow-hidden">
-      <ParticleBackground />
-      
-      <section className="min-h-screen flex items-center justify-center relative bg-gradient-hero">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
-          {/* Left Side - Text Content */}
-          <div className="text-center lg:text-left space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold font-sora leading-tight">
-                <span className="bg-gradient-cyber bg-clip-text text-transparent neon-text">
-                  Islavath
-                </span>
-                <br />
-                <span className="bg-gradient-cyber bg-clip-text text-transparent neon-text">
-                  Sathish Naik
-                </span>
-              </h1>
-              
-              <div className="text-xl sm:text-2xl font-medium text-muted-foreground font-jetbrains h-8 overflow-hidden">
-                <div 
-                  className="transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateY(-${currentSubtitle * 100}%)` }}
-                >
-                  {subtitles.map((subtitle, index) => (
-                    <div key={index} className="h-8 flex items-center">
-                      <span className="text-primary animate-fade-in">{subtitle}</span>
-                    </div>
-                  ))}
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+          <div className="text-center">
+            <div className="flex justify-center mb-8">
+              <div className="relative w-64 h-64 sm:w-80 sm:h-80">
+                <div className="absolute inset-0 rounded-full bg-gradient-cyber p-1 neon-glow animate-pulse"></div>
+                <div className="absolute inset-1 rounded-full bg-card overflow-hidden">
+                  <img 
+                    src={logo} 
+                    alt="ISN Logo" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
-
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl animate-fade-in">
-              "Merging Machine Intelligence with Creative Code."
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+              Hi, I'm <span className="text-primary">Sathish Naik</span>
+            </h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+              A passionate software engineer and AI enthusiast focused on creating innovative solutions
+              that make a difference.
             </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in">
-              <Button 
-                onClick={scrollToProjects}
-                className="bg-gradient-cyber hover:scale-105 transition-transform neon-glow text-lg px-8 py-3"
-              >
-                ⚡ View Projects
+            <div className="flex justify-center gap-4">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                View Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button 
-                onClick={scrollToContact}
-                variant="outline" 
-                className="border-primary hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all text-lg px-8 py-3 neon-border"
-              >
-                ✉️ Get in Touch
+              <Button variant="outline">
+                <Github className="mr-2 h-4 w-4" />
+                GitHub
               </Button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            {/* Social Icons */}
-            <div className="flex justify-center lg:justify-start space-x-6 animate-fade-in">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`p-3 rounded-full border border-border hover:scale-110 transition-all duration-300 neon-glow ${social.color}`}
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
+      {/* Tech Stack Section */}
+      <div className="py-12 bg-card/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Tech Stack</h2>
+          
+          {/* First row - moving right to left */}
+          <div className="flex overflow-hidden mb-8">
+            <div className="flex animate-scroll-left">
+              {techStack.slice(0, 6).map((tech, index) => (
+                <div key={index} className="flex-shrink-0 mx-4 w-16 h-16">
+                  <div className="w-full h-full rounded-full bg-background p-2 shadow-lg hover:scale-110 transition-transform duration-300">
+                    <img
+                      src={tech.logo}
+                      alt={tech.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex animate-scroll-left" aria-hidden="true">
+              {techStack.slice(0, 6).map((tech, index) => (
+                <div key={index} className="flex-shrink-0 mx-4 w-16 h-16">
+                  <div className="w-full h-full rounded-full bg-background p-2 shadow-lg hover:scale-110 transition-transform duration-300">
+                    <img
+                      src={tech.logo}
+                      alt={tech.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
               ))}
             </div>
           </div>
 
-          {/* Right Side - Profile Image */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              {/* Animated rings */}
-              <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping"></div>
-              <div className="absolute inset-4 rounded-full border-2 border-tech-accent/20 animate-pulse"></div>
-              <div className="absolute inset-8 rounded-full border border-primary/10 animate-pulse-slow"></div>
-              
-              {/* Profile image placeholder */}
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full bg-gradient-cyber p-1 neon-glow">
-                <div className="w-full h-full rounded-full bg-card flex items-center justify-center">
-                  <div className="text-6xl sm:text-8xl font-bold text-primary">ISN</div>
+          {/* Second row - moving left to right */}
+          <div className="flex overflow-hidden">
+            <div className="flex animate-scroll-right">
+              {techStack.slice(6, 12).map((tech, index) => (
+                <div key={index} className="flex-shrink-0 mx-4 w-16 h-16">
+                  <div className="w-full h-full rounded-full bg-background p-2 shadow-lg hover:scale-110 transition-transform duration-300">
+                    <img
+                      src={tech.logo}
+                      alt={tech.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+            <div className="flex animate-scroll-right" aria-hidden="true">
+              {techStack.slice(6, 12).map((tech, index) => (
+                <div key={index} className="flex-shrink-0 mx-4 w-16 h-16">
+                  <div className="w-full h-full rounded-full bg-background p-2 shadow-lg hover:scale-110 transition-transform duration-300">
+                    <img
+                      src={tech.logo}
+                      alt={tech.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowDown className="w-6 h-6 text-muted-foreground" />
-        </div>
-      </section>
+      </div>
     </div>
   );
 };

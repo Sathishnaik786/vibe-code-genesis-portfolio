@@ -1,126 +1,113 @@
-
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Github, ArrowUp } from 'lucide-react';
+import { Github, ExternalLink } from 'lucide-react';
+
+const projects = [
+  {
+    title: 'AI-Powered Chatbot',
+    description: 'An intelligent chatbot built with OpenAI GPT-4 and LangChain, featuring context-aware conversations and custom knowledge base integration.',
+    techStack: ['Python', 'OpenAI', 'LangChain', 'FastAPI'],
+    github: 'https://github.com',
+    demo: 'https://demo.example.com'
+  },
+  {
+    title: 'Neural Style Transfer',
+    description: 'Real-time style transfer application using PyTorch and deep learning, allowing users to apply artistic styles to their images.',
+    techStack: ['Python', 'PyTorch', 'React', 'FastAPI'],
+    github: 'https://github.com',
+    demo: 'https://demo.example.com'
+  },
+  {
+    title: 'Sentiment Analysis API',
+    description: 'RESTful API for sentiment analysis using HuggingFace transformers, supporting multiple languages and custom model fine-tuning.',
+    techStack: ['Python', 'HuggingFace', 'FastAPI', 'Docker'],
+    github: 'https://github.com',
+    demo: 'https://demo.example.com'
+  },
+  {
+    title: 'AI Image Generator',
+    description: 'Web application for generating images using Stable Diffusion, featuring custom model training and style mixing capabilities.',
+    techStack: ['Python', 'PyTorch', 'React', 'TypeScript'],
+    github: 'https://github.com',
+    demo: 'https://demo.example.com'
+  },
+  {
+    title: 'Code Assistant',
+    description: 'VS Code extension powered by GPT-4 for intelligent code completion, documentation generation, and refactoring suggestions.',
+    techStack: ['TypeScript', 'OpenAI', 'VS Code API'],
+    github: 'https://github.com',
+    demo: 'https://demo.example.com'
+  },
+  {
+    title: 'ML Model Dashboard',
+    description: 'Interactive dashboard for monitoring and managing machine learning models in production, with real-time metrics and alerts.',
+    techStack: ['Python', 'React', 'FastAPI', 'Docker'],
+    github: 'https://github.com',
+    demo: 'https://demo.example.com'
+  }
+];
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "AI-Powered Code Assistant",
-      description: "An intelligent coding companion that helps developers write better code using advanced language models and real-time suggestions.",
-      tech: ["Python", "OpenAI", "React", "FastAPI"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Neural Style Transfer App",
-      description: "Transform images using deep learning style transfer techniques with an intuitive web interface.",
-      tech: ["PyTorch", "TensorFlow", "React", "WebGL"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "LangChain Document AI",
-      description: "Intelligent document analysis and Q&A system powered by large language models and vector databases.",
-      tech: ["LangChain", "Pinecone", "HuggingFace", "FastAPI"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Voice-to-Code Generator",
-      description: "Revolutionary tool that converts natural language voice commands into executable code across multiple programming languages.",
-      tech: ["Whisper", "GPT-4", "TypeScript", "Node.js"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "AI Music Composer",
-      description: "Create original music compositions using machine learning models trained on various musical genres and styles.",
-      tech: ["TensorFlow", "Magenta", "React", "Web Audio API"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Smart Data Visualizer",
-      description: "Automatically generate beautiful, interactive data visualizations from raw datasets using AI-driven insights.",
-      tech: ["D3.js", "Python", "Pandas", "React"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Multimodal Chat Assistant",
-      description: "Advanced chatbot that processes text, images, and voice input to provide contextual responses using multiple AI models.",
-      tech: ["OpenAI", "Whisper", "CLIP", "React"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "AI Content Generator",
-      description: "Comprehensive content creation platform that generates blog posts, social media content, and marketing copy using fine-tuned language models.",
-      tech: ["GPT-4", "Next.js", "Supabase", "Stripe"],
-      github: "#",
-      demo: "#"
-    }
-  ];
-
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <div className="min-h-screen bg-background text-foreground py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold font-sora mb-6 bg-gradient-cyber bg-clip-text text-transparent">
-            Featured Projects
+          <h1 className="text-4xl sm:text-5xl font-bold font-sora mb-4">
+            Projects
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Innovative AI solutions that push the boundaries of technology and creativity
+            Explore my latest projects showcasing the intersection of AI and creative technology.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
-            <Card 
+            <div
               key={project.title}
-              className="hover-lift neon-border bg-card/50 backdrop-blur-sm fade-in-up"
+              className="group relative bg-card rounded-xl p-6 border border-border
+                transition-all duration-300 hover:-translate-y-2
+                dark:shadow-[0_0_20px_hsl(var(--glow)/0.3)]
+                hover:shadow-xl"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <CardHeader className="p-6">
-                <CardTitle className="font-sora text-lg">{project.title}</CardTitle>
-                <CardDescription className="text-muted-foreground text-sm">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
+              <h3 className="text-2xl font-bold font-sora mb-3">
+                {project.title}
+              </h3>
               
-              <CardContent className="space-y-4 p-6 pt-0">
-                <div className="flex flex-wrap gap-1">
-                  {project.tech.map((tech) => (
-                    <span 
-                      key={tech}
-                      className="px-2 py-1 bg-primary/10 text-primary rounded-md text-xs font-jetbrains"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="flex-1 neon-border hover:bg-primary hover:text-primary-foreground transition-all text-xs"
+              <p className="text-muted-foreground mb-4">
+                {project.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
                   >
-                    <Github className="w-3 h-3 mr-1" />
-                    GitHub
-                  </Button>
-                  <Button 
-                    size="sm" 
-                    className="flex-1 bg-gradient-cyber hover:scale-105 transition-transform text-xs"
-                  >
-                    <ArrowUp className="w-3 h-3 mr-1 rotate-45" />
-                    Demo
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex gap-4">
+                <Button
+                  variant="outline"
+                  className="flex-1 group-hover:bg-primary group-hover:text-primary-foreground
+                    transition-colors duration-300"
+                  onClick={() => window.open(project.github, '_blank')}
+                >
+                  <Github className="w-4 h-4 mr-2" />
+                  GitHub
+                </Button>
+                <Button
+                  className="flex-1 bg-gradient-cyber hover:scale-105 transition-transform"
+                  onClick={() => window.open(project.demo, '_blank')}
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Live Demo
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
       </div>
